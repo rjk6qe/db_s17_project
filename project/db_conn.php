@@ -16,37 +16,19 @@ class DbUtil{
     }
   }
 
-  private function fetch_all($result){
+  public static function fetch_all($result){
     $arr = array();
-    while($row = $result->fetch_array(MYSQLI_ASSOC)){
+    while($row = $result->fetch_array(MYSQLI_NUM)){
       array_push($arr, $row);
     }
     return $arr;
   }
 
   public function query($query_string){
-    $result = $this->db->query($query_string);
-    if($result==True){
-      return True;
-    } elif($result==False){
-      return False;
-    } else{
-      return $this->fetch_all($result);
-    }
-  }  
-
-  public function query_test(){
-    $query_text = "SELECT * FROM account";
-    return $this->query($query_text);
+    $result = $this->db->query($query_string) or die(mysqli_error($this->db)); //fails and dumps error for bad input
+    return $result;
   }
-}
 
-function getJSONPostData(){
-  $form_data = file_get_contents('php://input');
-  return json_decode($form_data, true);
 }
-
-$new_db = new DbUtil();
-print_r($new_db->query_test());
 
 ?>
