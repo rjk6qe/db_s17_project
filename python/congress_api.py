@@ -124,5 +124,5 @@ if __name__ == "__main__":
 	# print(post_request('db_s17_project/project/committee_api.php', committee_info()))
 	# print()
 	# print()
-	print(post_request('db_s17_project/project/congressperson_api.php', committee_info()))
+	print(post_request('db_s17_project/project/congressperson_api.php', congressperson_info()))
 
