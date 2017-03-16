@@ -9,7 +9,7 @@ function getJSONPostData(){
 function updateCongressperson(){
   $data = getJSONPostData()['data'];
   $new_db = new DbUtil();
-  $stmt = $conn->prepare("INSERT INTO Bill (member_id, first_name, last_name, district, state, party, type) VALUES (?, ?, ?, ?, ?, ?, ?)");
+  $stmt = $conn->prepare("INSERT INTO Congressperson (member_id, first_name, last_name, district, state, party, type) VALUES (?, ?, ?, ?, ?, ?, ?)");
   $stmt->bind_param("sssiss", $member_id, $first_name, $last_name, $district, $state, $party, $type);
 
   $senators = $data['senate'];
@@ -38,36 +38,4 @@ function updateCongressperson(){
     $stmt->execute();
   }
 }
-
-function updateCongressperson(){
-  $data = getJSONPostData()['data'];
-  $new_db = new DbUtil();
-  $stmt = $conn->prepare("INSERT INTO Bill (member_id, first_name, last_name, district, state, party, type) VALUES (?, ?, ?, ?, ?, ?, ?)");
-  $stmt->bind_param("sssiss", $member_id, $first_name, $last_name, $district, $state, $party, $type);
-
-  $senators = $data['senate'];
-  $house_membs = $data['house'];
-
-  // senate array
-  foreach ($senators as $senator){
-    $member_id = $senator['member_id'];
-    $first_name = $senator['first_name'];
-    $last_name = $senator['last_name'];
-    $district = null;
-    $state = $senator['state'];
-    $party = $senator['party'];
-    $type = $senator['type'];
-    $stmt->execute();
-  }
-  // house array
-  foreach ($shouse_membs as $house_memb){
-    $member_id = $house_memb['member_id'];
-    $first_name = $house_memb['first_name'];
-    $last_name = $house_memb['last_name'];
-    $district = $house_memb['district'];
-    $state = $house_memb['state'];
-    $party = $house_memb['party'];
-    $type = $house_memb['type'];
-    $stmt->execute();
-  }
 }
