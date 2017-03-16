@@ -27,6 +27,4 @@ function updateCommittee(){
   }
   
 }
-
-updateCommittee();
 ?>
