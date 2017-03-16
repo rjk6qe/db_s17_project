@@ -7,7 +7,6 @@ function getJSONPostData(){
 
 function updateCongressperson(){
   $data = getJSONPostData()['data'];
-  var_dump($data);
   $db = DbUtil::create();
 
   $stmt = $db->prepare("INSERT INTO Congressperson (member_id, first_name, last_name, district, state, party, type) VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -25,7 +24,7 @@ function updateCongressperson(){
     $member_id = $senator['member_id'];
     $first_name = $senator['first_name'];
     $last_name = $senator['last_name'];
-    $district = NULL;
+    $district = "";
     $state = $senator['state'];
     $party = $senator['party'];
     $type = $senator['type'];
