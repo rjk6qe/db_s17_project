@@ -20,7 +20,6 @@ function updateCongressperson(){
 
   // senate array
   foreach ($senators as $senator){
-    var_dump($senator);
     $member_id = $senator['member_id'];
     $first_name = $senator['first_name'];
     $last_name = $senator['last_name'];
@@ -28,9 +27,19 @@ function updateCongressperson(){
     $state = $senator['state'];
     $party = $senator['party'];
     $type = $senator['type'];
+    echo $member_id;
+    echo $first_name;
+    echo $last_name;
+    echo $district;
+    echo $state;
+    echo $party;
+    echo $type;
+
     if(!$stmt->execute()){
       echo $stmt->error;
     }
+
+    echo '<br><br>';
   }
   // house array
   foreach ($house_membs as $house_memb){
