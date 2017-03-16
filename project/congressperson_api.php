@@ -8,18 +8,20 @@ function getJSONPostData(){
 function updateCongressperson(){
   $data = getJSONPostData()['data'];
   $db = DbUtil::create();
+  echo 'created<br>';
   $stmt = $db->prepare("INSERT INTO Congressperson (member_id, first_name, last_name, district, state, party, type) VALUES (?, ?, ?, ?, ?, ?, ?)");
+  echo 'prepared';
   $stmt->bind_param("sssiss", $member_id, $first_name, $last_name, $district, $state, $party, $type);
-
+  echo 'bound<br>';
   $senators = $data['senate'];
   $house_membs = $data['house'];
-
+  echo 'split arrays';
   // senate array
   foreach ($senators as $senator){
     $member_id = $senator['member_id'];
     $first_name = $senator['first_name'];
     $last_name = $senator['last_name'];
-    $district = null;
+    $district = NULL;
     $state = $senator['state'];
     $party = $senator['party'];
     $type = $senator['type'];
