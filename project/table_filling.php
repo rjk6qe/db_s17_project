@@ -4,13 +4,16 @@ function getJSONPostData(){
   $form_data = file_get_contents('php://input');
   return json_decode($form_data, true);
 }
+
 function updateCongressperson(){
   $data = getJSONPostData()['data'];
   $new_db = new DbUtil();
   $stmt = $conn->prepare("INSERT INTO Congressperson (member_id, first_name, last_name, district, state, party, type) VALUES (?, ?, ?, ?, ?, ?, ?)");
   $stmt->bind_param("sssiss", $member_id, $first_name, $last_name, $district, $state, $party, $type);
+
   $senators = $data['senate'];
   $house_membs = $data['house'];
+  
   // senate array
   foreach ($senators as $senator){
     $member_id = $senator['member_id'];

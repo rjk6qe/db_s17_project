@@ -109,6 +109,7 @@ def bill_info():
 		if 'bill' in vote.keys():
 			bill_info = get_request((None,), url=vote['bill']['api_uri'])[0]
 			sponsor_info = get_request((None,), url=bill_info['sponsor_uri'])[0]
+			bill_dict['committee'] = bill_info['committees']
 			bill_dict['bill_id'] = bill_info['bill']
 			bill_dict['bill_title'] = vote['bill']['title']
 			bill_dict['bill_sponsor_id'] = sponsor_info['member_id']
@@ -118,4 +119,9 @@ def bill_info():
 
 
 if __name__ == "__main__":
-	print(post_request('api.php', congressperson_info()))
+	# with open('congresspeople.html', 'w') as f:
+	# 	f.write(post_request('api.php', congressperson_info()))
+	# with open('committee.html', 'w') as f:
+	# 	f.write(post_request('api.php', committee_info()))
+	
+	print(post_request('db_s17_project/project/committee_sarah.php', committee_info()))
