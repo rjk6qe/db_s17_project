@@ -12,7 +12,7 @@ _UVA_ID = "rjk6qe"
 _TILDE_ID = ''.join(('~',_UVA_ID))
 _STARDOCK_URL = "/".join((_PHP_URL, _TILDE_ID))
 
-def get_request(tuple_of_url_elements):
+def get_request(tuple_of_url_elements, url=None):
 	#to go to api/v1/hey/you/there.json, pass ('hey','you',there')
 	#returns dictionary or None, depending on status
 
@@ -21,15 +21,18 @@ def get_request(tuple_of_url_elements):
 		url_without_dot_json = "/".join((_API_BASE_URL, join_params))
 		return ''.join((url_without_dot_json, '.json'))
 
-	url = _join_url(tuple_of_url_elements)
-	response = requests.get(url, headers=_HEADERS).json()
+	if url == None:
+		request_url = _join_url(tuple_of_url_elements)
+	else:
+		request_url = url
+	response = requests.get(request_url, headers=_HEADERS).json()
 	if response['status'] == 'OK':
 		return response['results']
 	else:
 		return None
 
 
-def post_request(script, data):
+def post_request(script, data, url=None):
 	#send to whatever script we need
 	#returns response if valid, None otherwise
 
@@ -37,7 +40,10 @@ def post_request(script, data):
 		join_params = "/".join(params)
 		return "/".join((_STARDOCK_URL, join_params))
 
-	url = _join_url((script,))
-	response = requests.post(url, data=json.dumps(data), headers=_HEADERS)
+	if url == None:
+		request_url = _join_url((script,))
+	else:
+		request_url = url
+	response = requests.post(request_url, data=json.dumps(data), headers=_HEADERS)
 
 	return response.text

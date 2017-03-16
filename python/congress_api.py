@@ -1,64 +1,30 @@
 from api_helper import *
 
 def get_list_of_members(congress=None, chamber=None):
-	#Congress: 102-114 for House, 80-114 for Senate
-	#Chamber: house or senate
-	#Default to 114th Senate
-	if congress == None:
-		congress = 114
-	if chamber == None:
-		chamber = 'senate'
+	#Params: congress and chamber
 	return get_request((str(congress),chamber,'members'))
 
 def get_specific_member(member_id=None):
-	#Member_id: their own id system
-	if member_id != None:
-		return get_request(('members',str(member_id)))
-	else:
-		return None
+	#Params: member_id
+	return get_request(('members',str(member_id)))
 
 def get_committees(congress=None, chamber=None):
+	#Params: congress and chamber
 	return get_request((str(congress),chamber, 'committees'))
 
 def get_current_members_by_district(chamber=None, state=None, district=None):
-	#Chamber: house or senate, default to senate
-	#State: two-letters, default to VA, duh
-	#District, house only
-	if chamber==None:
-		chamber = "senate"
-	if state==None:
-		state = "VA"
-	if chamber=='house' and district==None:
-		district = 1
-
 	if chamber == 'senate':
 		return get_request(('members',chamber,state,'current'))
 	else:
 		return get_request(('members',chamber,state,district,'current'))
 
 def get_members_voting_position(member_id=None):
-	#Member_id: their own id system
-	if member_id != None:
-		return get_request(('members',str(member_id)))
-	else:
-		return None
+	#Params: member_id
+	return get_request(('members',str(member_id)))
 
 def get_specific_roll_call_vote(congress=None, chamber=None, session_number=None, roll_call_number=None):
-	#Congress: 102-115 for House, 101-115 for Senate
-	#Chamber: house or senate
-	#session_number: 1 or 2
-	#roll_call_number: integer
-	if congress==None:
-		congress = 114
-	if chamber==None:
-		chamber="senate"
-	if session_number==None:
-		session_number=1
-	if roll_call_number==None:
-		roll_call_number=1
-
-	return get_request((str(congress), chamber, 'sessions', session_number, 'votes', roll_call_number))
-
+	#Parms: congress, chamber, session_number, roll_call_number
+	return get_request((str(congress), chamber, 'sessions', str(session_number), 'votes', str(roll_call_number)))
 
 def congressperson_info():
 	request_data = {
@@ -74,6 +40,7 @@ def congressperson_info():
 
 	for house_member in list_of_house_members:
 		person_info = {
+			'member_id':house_member['id'],
 			'first_name': house_member['first_name'], 
 			'last_name':house_member['last_name'],
 			'district': house_member['district'],
@@ -85,9 +52,9 @@ def congressperson_info():
 
 	for senate_member in list_of_senate_members:
 		person_info = {
+			'member_id':house_member['id'],
 			'first_name': senate_member['first_name'], 
 			'last_name':senate_member['last_name'],
-			'district': None,
 			'state': senate_member['state'],
 			'party': senate_member['party'],
 			'type': 'senate'
@@ -111,14 +78,16 @@ def committee_info():
 	for committee in list_of_house_committees:
 		info = {
 			'name':committee['name'],
-			'chair':committee['chair']
+			'chair':committee['chair'],
+			'chair_id':committee['chair_id']
 			}
 		request_data['data']['house_committees'].append(info)
 
 	for committee in list_of_senate_committees:
 		info = {
 			'name':committee['name'],
-			'chair':committee['chair']
+			'chair':committee['chair'],
+			'chair_id':committee['chair_id']
 			}
 		request_data['data']['senate_committees'].append(info)
 
@@ -128,11 +97,25 @@ def bill_info():
 	request_data = {
 		'table':'Bill', 
 		'data':{
-			'house_committees':[],
-			'senate_committees':[]
+			'house_votes':[],
+			'senate_votes':[]
 			}
 		}
 
-if __name__ == "__main__":
+	bill_dict = {}
 
+	for roll_call_number in range(1, 10):
+		vote = get_specific_roll_call_vote(congress=115, chamber='senate', session_number=1, roll_call_number=roll_call_number)['votes']['vote']
+		if 'bill' in vote.keys():
+			bill_info = get_request((None,), url=vote['bill']['api_uri'])[0]
+			sponsor_info = get_request((None,), url=bill_info['sponsor_uri'])[0]
+			bill_dict['bill_id'] = bill_info['bill']
+			bill_dict['bill_title'] = vote['bill']['title']
+			bill_dict['bill_sponsor_id'] = sponsor_info['member_id']
+			request_data['data']['house_votes'].append(bill_dict)
+	return request_data
 	
+
+
+if __name__ == "__main__":
+	print(post_request('api.php', congressperson_info()))
