@@ -11,7 +11,7 @@ function updateCongressperson(){
 
   $stmt = $db->prepare("INSERT INTO Congressperson (member_id, first_name, last_name, district, state, party, type) VALUES (?, ?, ?, ?, ?, ?, ?)");
   if(!$stmt){
-    echo $db->error;
+    echo $db->error;  
   }
   $stmt->bind_param("sssiss", $member_id, $first_name, $last_name, $district, $state, $party, $type);
 
