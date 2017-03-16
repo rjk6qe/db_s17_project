@@ -28,7 +28,9 @@ function updateCongressperson(){
     $state = $senator['state'];
     $party = $senator['party'];
     $type = $senator['type'];
-    $stmt->execute();
+    if(!$stmt->execute()){
+      echo $stmt->error;
+    }
   }
   // house array
   foreach ($house_membs as $house_memb){
@@ -39,7 +41,9 @@ function updateCongressperson(){
     $state = $house_memb['state'];
     $party = $house_memb['party'];
     $type = $house_memb['type'];
-    $stmt->execute();
+   if(!$stmt->execute()){
+      echo $stmt->error;
+    }
   }
 }
 
