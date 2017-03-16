@@ -27,7 +27,7 @@ function updateCongressperson(){
     $stmt->execute();
   }
   // house array
-  foreach ($shouse_membs as $house_memb){
+  foreach ($house_membs as $house_memb){
     $member_id = $house_memb['member_id'];
     $first_name = $house_memb['first_name'];
     $last_name = $house_memb['last_name'];
