@@ -13,7 +13,7 @@ function updateCongressperson(){
   if(!$stmt){
     echo $db->error;  
   }
-  $stmt->bind_param("sssiss", $member_id, $first_name, $last_name, $district, $state, $party, $type);
+  $stmt->bind_param("sssisss", $member_id, $first_name, $last_name, $district, $state, $party, $type);
 
   $senators = $data['senate'];
   $house_membs = $data['house'];
