@@ -7,8 +7,8 @@ function getJSONPostData(){
 
 function updateBill(){
   $data = getJSONPostData()['data'];
-  $new_db = DbUtil::create();
-  $stmt = $conn->prepare("INSERT INTO Bill (ID, member_id, title, committee_name) VALUES (?, ?, ?, ?)");
+  $db = DbUtil::create();
+  $stmt = $db->prepare("INSERT INTO Bill (ID, member_id, title, committee_name) VALUES (?, ?, ?, ?)");
   $stmt->bind_param("ssss", $bill_id, $member_id, $bill_title, $commitee_name);
 
   $senator_votes = $data['senate_votes'];

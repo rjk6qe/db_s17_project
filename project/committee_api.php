@@ -7,11 +7,11 @@ function getJSONPostData(){
 
 function updateCommittee(){
   $data = getJSONPostData()['data'];
-  $new_db = DbUtil::create();
+  $db = DbUtil::create();
 
-  $stmt = $new_db->prepare("INSERT INTO Committee (name) VALUES (?)");
+  $stmt = $db->prepare("INSERT INTO Committee (name) VALUES (?)");
   if(!$stmt){
-    echo $new_db->error;
+    echo $db->error;
   }
 
   $stmt->bind_param("s", $name);
