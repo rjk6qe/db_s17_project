@@ -120,5 +120,10 @@ def bill_info():
 
 if __name__ == "__main__":
 	#post_request('db_s17_project/project/bill_api.php', bill_info())
-	post_request('db_s17_project/project/committee_api.php', committee_info())
-	post_request('db_s17_project/project/congressperson_api.php', committee_info())
+	# print("Committees:")
+	# print(post_request('db_s17_project/project/committee_api.php', committee_info()))
+	# print()
+	# print()
+	print("Congresspeople")
+	print(post_request('db_s17_project/project/congressperson_api.php', committee_info()))
+
