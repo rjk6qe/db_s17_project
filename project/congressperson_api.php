@@ -24,7 +24,7 @@ function updateCongressperson(){
     $member_id = $senator['member_id'];
     $first_name = $senator['first_name'];
     $last_name = $senator['last_name'];
-    $district = "";
+    $district = -1;
     $state = $senator['state'];
     $party = $senator['party'];
     $type = $senator['type'];
@@ -37,7 +37,7 @@ function updateCongressperson(){
     $member_id = $house_memb['member_id'];
     $first_name = $house_memb['first_name'];
     $last_name = $house_memb['last_name'];
-    $district = $house_memb['district'];
+    $district = intval($house_memb['district']);
     $state = $house_memb['state'];
     $party = $house_memb['party'];
     $type = $house_memb['type'];
