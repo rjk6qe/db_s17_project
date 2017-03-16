@@ -18,6 +18,9 @@ function updateCongressperson(){
   $senators = $data['senate'];
   $house_membs = $data['house'];
 
+  var_dump($senators);
+  echo '<br>';
+
   // senate array
   foreach ($senators as $senator){
     var_dump($senator);
