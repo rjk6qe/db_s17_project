@@ -119,9 +119,6 @@ def bill_info():
 
 
 if __name__ == "__main__":
-	# with open('congresspeople.html', 'w') as f:
-	# 	f.write(post_request('api.php', congressperson_info()))
-	# with open('committee.html', 'w') as f:
-	# 	f.write(post_request('api.php', committee_info()))
-	
-	print(post_request('db_s17_project/project/committee_sarah.php', committee_info()))
+	post_request('db_s17_project/project/bill_api.php', bill_info())
+	post_request('db_s17_project/project/committee_api.php', committee_info())
+	post_request('db_s17_project/project/congressperson_api.php', committee_info())
