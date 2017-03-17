@@ -115,7 +115,6 @@ def bill_info():
 
 
 	for bill in house_bills:
-		print(bill.keys())
 		bill_dict['committee'] = bill['committees']
 		bill_dict['bill_sponsor_id'] = bill['sponsor_id']
 		bill_dict['bill_title'] = bill['title']
@@ -134,8 +133,7 @@ def bill_info():
 
 
 if __name__ == "__main__":
-	post_request('db_s17_project/project/bill_api.php', bill_info())
-	print(bill_info())
+	print(post_request('db_s17_project/project/bill_api.php', bill_info()))
 	# print("Committees:")
 	# print(post_request('db_s17_project/project/committee_api.php', committee_info()))
 	# print()
