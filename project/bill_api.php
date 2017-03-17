@@ -20,7 +20,9 @@ function updateBill(){
     $member_id = $bill['bill_sponsor_id'];
     $bill_title = $bill['bill_title'];
     $commitee_name = $bill['committee'];
-    $stmt->execute();
+    if(!$stmt->execute()){
+      echo $stmt->error;
+    }
   }
   // house array
   foreach ($house__votes as $bill){
@@ -28,7 +30,9 @@ function updateBill(){
     $member_id = $bill['bill_sponsor_id'];
     $bill_title = $bill['bill_title'];
     $commitee_name = $bill['committee'];
-    $stmt->execute();
+    if(!$stmt->execute()){
+      echo $stmt->error;
+    }
   }
 }
 

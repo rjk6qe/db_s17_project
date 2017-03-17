@@ -22,6 +22,10 @@ def get_members_voting_position(member_id=None):
 	#Params: member_id
 	return get_request(('members',str(member_id)))
 
+def get_recent_bills(congress=None, chamber=None, type_of_bill=None):
+	#Params: congress, chamber, type
+	return get_request((str(congress),chamber, 'bills', type_of_bill))
+
 def get_specific_roll_call_vote(congress=None, chamber=None, session_number=None, roll_call_number=None):
 	#Parms: congress, chamber, session_number, roll_call_number
 	return get_request((str(congress), chamber, 'sessions', str(session_number), 'votes', str(roll_call_number)))
@@ -97,32 +101,44 @@ def bill_info():
 	request_data = {
 		'table':'Bill', 
 		'data':{
-			'house_votes':[],
-			'senate_votes':[]
+			'house_bills':[],
+			'senate_bills':[]
 			}
 		}
 
 	bill_dict = {}
 
-	for roll_call_number in range(1, 10):
-		vote = get_specific_roll_call_vote(congress=115, chamber='senate', session_number=1, roll_call_number=roll_call_number)['votes']['vote']
-		if 'bill' in vote.keys():
-			bill_info = get_request((None,), url=vote['bill']['api_uri'])[0]
-			sponsor_info = get_request((None,), url=bill_info['sponsor_uri'])[0]
-			bill_dict['committee'] = bill_info['committees']
-			bill_dict['bill_id'] = bill_info['bill']
-			bill_dict['bill_title'] = vote['bill']['title']
-			bill_dict['bill_sponsor_id'] = sponsor_info['member_id']
-			request_data['data']['house_votes'].append(bill_dict)
+	#vote = get_specific_roll_call_vote(congress=115, chamber='senate', session_number=1, roll_call_number=roll_call_number)['votes']['vote']
+	house_bills = get_recent_bills(congress=115, chamber='house',type_of_bill='passed')[0]['bills']
+	senate_bills = get_recent_bills(congress=115, chamber='senate',type_of_bill='passed')[0]['bills']
+
+
+
+	for bill in house_bills:
+		print(bill.keys())
+		bill_dict['committee'] = bill['committees']
+		bill_dict['bill_sponsor_id'] = bill['sponsor_id']
+		bill_dict['bill_title'] = bill['title']
+		bill_dict['bill_id'] = bill['bill_id']
+		request_data['data']['house_bills'].append(bill_dict)
+	for bill in senate_bills:
+		bill_dict['committee'] = bill['committees']
+		bill_dict['bill_sponsor_id'] = bill['sponsor_id']
+		bill_dict['bill_title'] = bill['title']
+		bill_dict['bill_id'] = bill['bill_id']
+		request_data['data']['senate_bills'].append(bill_dict)
+
 	return request_data
+
 	
 
 
 if __name__ == "__main__":
-	#post_request('db_s17_project/project/bill_api.php', bill_info())
+	post_request('db_s17_project/project/bill_api.php', bill_info())
+	print(bill_info())
 	# print("Committees:")
 	# print(post_request('db_s17_project/project/committee_api.php', committee_info()))
 	# print()
 	# print()
-	print(post_request('db_s17_project/project/congressperson_api.php', congressperson_info()))
+	#print(post_request('db_s17_project/project/congressperson_api.php', congressperson_info()))
 
