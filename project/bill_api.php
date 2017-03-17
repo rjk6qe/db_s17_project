@@ -14,8 +14,8 @@ function updateBill(){
   }
   $stmt->bind_param("ssss", $bill_id, $member_id, $bill_title, $commitee_name);
   echo 'done binding<br>';
-  $senator_votes = $data['senate_votes'];
-  $house__votes = $data['house_votes'];
+  $senator_votes = $data['senate_bills'];
+  $house__votes = $data['house_bills'];
   var_dump($senator_votes);
   // senate array
   foreach ($senator_votes as $bill){
