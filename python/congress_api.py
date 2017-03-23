@@ -171,7 +171,8 @@ if __name__ == "__main__":
 	#print(post_request('db_s17_project/project/bill_api.php', bill_info()))
 
 	#print(get_vote_by_date(chamber='house', year=2016, month=2))
-	#vote_info()
+	print(post_request('db_s17_project/project/votes_api.php', vote_info()))
+
 
 	# print("Committees:")
 	# print()

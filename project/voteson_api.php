@@ -8,11 +8,11 @@ function getJSONPostData(){
 function updateVote(){
   $data = getJSONPostData()['data'];
   $db = DbUtil::create();
-  $stmt = $db->prepare("INSERT INTO Vote (member_id, bill_id, date) VALUES (?, ?, ?)");
+  $stmt = $db->prepare("INSERT INTO VotesOn (member_id, bill_id, date) VALUES (?, ?, ?)");
   if(!$stmt){
     echo $db->error;
   }
-  
+
   $stmt->bind_param("sss", $member_id, $bill_id, $date);
 
   $senator_votes = $data['senate_votes'];
@@ -20,20 +20,26 @@ function updateVote(){
   // senate array
   foreach ($senator_votes as $vote){
     $bill_id = $vote['bill_id'];
-    $member_id = $vote['member_id'];
     $date = $bill['date'];
-    if(!$stmt->execute()){
-      echo $stmt->error;
+
+    foreach($vote['positions'] as $member){
+      $member_id = $member['member_id'];
+      if(!$stmt->execute()){
+       echo $stmt->error;
+      }
     }
+    
   }
   // house array
   foreach ($house__votes as $vote){
     $bill_id = $vote['bill_id'];
-    $member_id = $vote['member_id'];
     $date = $bill['date'];
-    if(!$stmt->execute()){
-      echo $stmt->error;
-    }
+
+    foreach($vote['positions'] as $member){
+      $member_id = $member['member_id'];
+      if(!$stmt->execute()){
+       echo $stmt->error;
+      }
   }
 }
 
