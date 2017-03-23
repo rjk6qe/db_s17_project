@@ -9,12 +9,12 @@ function updateCommittee(){
   $data = getJSONPostData()['data'];
   $db = DbUtil::create();
 
-  $stmt = $db->prepare("INSERT INTO Committee (name) VALUES (?)");
+  $stmt = $db->prepare("INSERT INTO Committee (committee_id, committee_name) VALUES (?,?)");
   if(!$stmt){
     echo $db->error;
   }
 
-  $stmt->bind_param("s", $name);
+  $stmt->bind_param("ss", $committee_id, $name);
 
   $senate_com = $data['senate_committees'];
   $house_com = $data['house_committees'];

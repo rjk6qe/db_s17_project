@@ -8,10 +8,10 @@
 		$searchString = '%' . $_GET['searchIP'] . '%';
 		$stmt->bind_param(s, $searchString);
 		$stmt->execute();
-		$stmt->bind_result($committee_name);
-		echo "<table border=1><th>committee_name</th>\n";
+		$stmt->bind_result($committee_id, $committee_name);
+		echo "<table border=1><th>committe_id</th><th>committee_name</th>\n";
 		while($stmt->fetch()) {
-			echo "<tr><td>$committee_name</td></tr>";
+			echo "<tr><td>$committe_id</td><td>$committee_name</td></tr>";
 		}
 		echo "</table>";
 	
