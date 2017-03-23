@@ -30,6 +30,10 @@ def get_specific_roll_call_vote(congress=None, chamber=None, session_number=None
 	#Parms: congress, chamber, session_number, roll_call_number
 	return get_request((str(congress), chamber, 'sessions', str(session_number), 'votes', str(roll_call_number)))
 
+def get_vote_by_date(chamber=None, year=None, month=None):
+
+	return get_request((chamber, 'votes', str(year), str(month)))
+
 def congressperson_info():
 	request_data = {
 		'table':'Congressperson', 
@@ -56,7 +60,7 @@ def congressperson_info():
 
 	for senate_member in list_of_senate_members:
 		person_info = {
-			'member_id':house_member['id'],
+			'member_id':senate_member['id'],
 			'first_name': senate_member['first_name'], 
 			'last_name':senate_member['last_name'],
 			'state': senate_member['state'],
@@ -132,11 +136,43 @@ def bill_info():
 
 	return request_data
 
-	
+def vote_info():
+	request_data = {
+		'table':'Vote', 
+		'data':{
+			'house_votes':[],
+			'senate_votes':[]
+			}
+		}
 
+	votes_by_month = get_vote_by_date(chamber='house', year=2017, month=3)['votes']
+
+	for vote in votes_by_month:
+		vote_dict = {}
+		if 'bill' in vote:
+			bill = vote['bill']
+			if bill.get('bill_id', False):
+				vote_dict['bill_id'] = bill['bill_id']
+				vote_dict['date'] = vote['date']
+				vote_dict['positions'] = []
+				if vote.get('result', 'Failed') == 'Passed':
+					roll_call = vote['roll_call']
+					roll_call_list = get_specific_roll_call_vote(congress=115, chamber='house', session_number=1, roll_call_number=roll_call)
+					roll_call_list = roll_call_list['votes']
+					position_list = roll_call_list['vote']['positions']
+					for position in position_list:
+						vote_dict['positions'].append({'member_id':position['member_id'], 'vote_position':position['vote_position']})
+					request_data['data']['house_votes'].append(vote_dict)
+
+
+	print(request_data)
 
 if __name__ == "__main__":
-	print(post_request('db_s17_project/project/bill_api.php', bill_info()))
+	#print(post_request('db_s17_project/project/bill_api.php', bill_info()))
+
+	#print(get_vote_by_date(chamber='house', year=2016, month=2))
+	print(post_request('db_s17_project/project/votes_api.php', vote_info()))
+
 
 	# print("Committees:")
 	# print()
