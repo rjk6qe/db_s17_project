@@ -12,6 +12,7 @@ function updateVote(){
   if(!$stmt){
     echo $db->error;
   }
+  
   $stmt->bind_param("sss", $member_id, $bill_id, $date);
 
   $senator_votes = $data['senate_votes'];
