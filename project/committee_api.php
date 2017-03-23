@@ -14,7 +14,7 @@ function updateCommittee(){
     echo $db->error;
   }
 
-  $stmt->bind_param("ss", $committee_id, $name);
+  $stmt->bind_param("ss", $id, $name);
 
   $senate_com = $data['senate_committees'];
   $house_com = $data['house_committees'];
@@ -22,12 +22,14 @@ function updateCommittee(){
   foreach ($senate_com as $s){
     var_dump($s);
     $name = $s['name'];
+    $id = $s['id'];
     $stmt->execute();
   }
 
   foreach($house_com as $h){
     var_dump($h);
     $name = $h['name'];
+    $id = $h['id'];
     $stmt->execute();
   }
   

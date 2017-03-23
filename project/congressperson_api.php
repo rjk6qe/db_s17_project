@@ -23,7 +23,7 @@ function updateCongressperson(){
   echo 'done binding';
   
   $senators = $data['senate'];
-  //$house_membs = $data['house'];
+  $house_membs = $data['house'];
 
   // senate array
   foreach ($senators as $senator){
@@ -41,7 +41,6 @@ function updateCongressperson(){
 
     foreach($committees as $com){
       $committee_id = $com['id'];
-      
       
       if(!$serves_stmt->execute()){
 	echo $serves_stmt->error;
