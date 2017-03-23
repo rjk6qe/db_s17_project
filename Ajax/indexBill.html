@@ -50,7 +50,7 @@
  	<title>Bill title</title>
 	<script>
 	$(document).ready(function() {
-		$( "#searchIPinput" ).change(function() {
+		$( "#searchButton" ).click(function() {
 		
 			$.ajax({
 				url: 'searchBill.php', 
@@ -70,12 +70,18 @@
 	<h3>Search substring of title in Bill Table</h3>	
 	<input class="xlarge" id="searchIPinput" type="search" size="30" placeholder="Bill's Title Contains"/>
 
-	<div id="searchIPresult">Search Result</div>
-
+	<button type="button" id="searchButton" class = "btn btn-default"> Search</button>
+	<div id="searchIPresult"></div>
 	<br/><br/>
 
 	<a type="button" class="btn btn-primary" href="../">Home</a>
 
 </body>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+
 </html>
 

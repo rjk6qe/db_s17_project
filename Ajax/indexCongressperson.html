@@ -48,7 +48,7 @@
  	<title>Congressperson last_name</title>
 	<script>
 	$(document).ready(function() {
-		$( "#searchIPinput" ).change(function() {
+		$( "#searchButton" ).click(function() {
 		
 			$.ajax({
 				url: 'searchCongressperson.php', 
@@ -68,8 +68,8 @@
 	<h3>Search substring of last_name in Congressperson Table</h3>	
            
 	<input class="xlarge" id="searchIPinput" type="search" size="30" placeholder="Congressperson's last_name Contains"/>
-
-	<div id="searchIPresult">Search Result</div>
+	<button type="button" id="searchButton" class="btn btn-default">Search</button>
+	<div id="searchIPresult"></div>
 
 	<br/><br/>
 

@@ -48,7 +48,7 @@
  	<title>Committee name</title>
 	<script>
 	$(document).ready(function() {
-		$( "#searchIPinput" ).change(function() {
+		$( "#searchButton" ).click(function() {
 		
 			$.ajax({
 				url: 'searchCommittee.php', 
@@ -67,8 +67,8 @@
 	<div class="container theme-showcase" role="main">
 	<h3>Search substring of name in Committee Table</h3>	
         <input class="xlarge" id="searchIPinput" type="search" size="30" placeholder="Committee's Name Contains"/>
-
-	<div id="searchIPresult">Search Result</div>
+	<button type="button" id="searchButton" class = "btn btn-default"> Search</button>
+	<div id="searchIPresult"></div>
 
 	<br/><br/>
 
