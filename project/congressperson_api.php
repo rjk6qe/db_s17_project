@@ -27,14 +27,7 @@ function updateCongressperson(){
     $state = $senator['state'];
     $party = $senator['party'];
     $type = $senator['type'];
-    echo $member_id;
-    echo $first_name;
-    echo $last_name;
-    echo $district;
-    echo $state;
-    echo $party;
-    echo $type;
-
+    echo $senator['committees'];
     if(!$stmt->execute()){
       echo $stmt->error;
     }
