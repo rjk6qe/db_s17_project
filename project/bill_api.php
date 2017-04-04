@@ -8,7 +8,7 @@ function getJSONPostData(){
 function updateBill(){
   $data = getJSONPostData()['data'];
   $db = DbUtil::create();
-  $stmt = $db->prepare("INSERT INTO Bill (ID, member_id, title, committee_name) VALUES (?, ?, ?, ?)");
+  $stmt = $db->prepare("INSERT INTO Bill (bill_id, member_id, title, committee_name) VALUES (?, ?, ?, ?)");
   if(!$stmt){
     echo $db->error;
   }
