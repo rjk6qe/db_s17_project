@@ -12,7 +12,7 @@
     <title>Follow Your Congressperson!</title>
 
     <?php
-								require_once('nav1.php');
+								require_once('nav.php');
 							       
 							      
 
