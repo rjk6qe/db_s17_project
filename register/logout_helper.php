@@ -1,5 +1,5 @@
 <?php
 session_start();
 $_SESSION['logged_in'] = false;
-header("Location: ../Main/main.html");
+header("Location: ../register/login.php");
 ?>

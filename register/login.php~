@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<TYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -7,22 +7,29 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
     <title>Follow Your Congressperson!</title>
 
     <?php
-								require_once('nav.php');
-?>
-  </head>
+								require_once('../register/nav.php');
+							       
+							      
+
+								?>
+  
+</head>
 
 
 
 <body>
+
 <nav class = "navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-<a class="navbar-brand" href="#">Registration</a>
+<a class="navbar-brand" href="#">Welcome Back! Login here.</a>
 </nav>
 
-<form action="register_helper.php" method="post">
+<div class="container">
+<form action="../register/login_helper.php" method="post">
  <div class='form-group'>
   <label for="inputusername"> Username:</label>
   <input type ="text" class="form-control" id="username" name="inputUsername">
@@ -32,19 +39,20 @@
   <label for="pwd"> Password:</label>
   <input type ="password" class="form-control" id="pwd" name="inputPassword">
  </div>
-
- <div class='form-group'>
-  <label for="email"> Email:</label>
-  <input type ="email" class="form-control" id="email" name="inputEmail">
- </div>
- <input type="submit" class="btn btn-default"> 
+ <input type="submit" class="btn btn-default">
 </form>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-
+<a href='../register/register.php'>Click here to register an account<a>
+<br>
+<br>
+<?php
+   if(isset($_SESSION['error_msg'])){
+     echo "<div class='alert alert-danger'>
+<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+<strong>Oops!</strong> ". $_SESSION['error_msg'] ." </div>";
+     unset($_SESSION['error_msg']);
+   }
+?>
+							      
+</div>
 </body>
-
 </html>

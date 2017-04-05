@@ -29,15 +29,15 @@
 </nav>
 
 <div class="container">
-<form action="login_helper.php" method="post">
+<form action="groupsNew_helper.php" method="post">
  <div class='form-group'>
-  <label for="inputusername"> Username:</label>
-  <input type ="text" class="form-control" id="username" name="inputUsername">
+  <label for="inputgroupname"> Group name:</label>
+  <input type ="text" class="form-control" id="groupname" name="inputGroupname">
  </div>
 
  <div class='form-group'>
-  <label for="pwd"> Password:</label>
-  <input type ="password" class="form-control" id="pwd" name="inputPassword">
+  <label for="topic"> Topic:</label>
+  <input type ="text" class="form-control" id="topic" name="inputTopic">
  </div>
  <input type="submit" class="btn btn-default">
 </div>
