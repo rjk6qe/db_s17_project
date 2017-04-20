@@ -11,8 +11,8 @@
 
     <title>Follow Your Congressperson!</title>
 <?php
-								require_once('../register/nav.php');
-require_once('../register/login_required.php');
+								require_once('../nav.php');
+require_once('../login_required.php');
 ?>
 							       
   </head>
@@ -32,18 +32,26 @@ require_once('../register/login_required.php');
         <div class="col-lg-4">
           <h2>Groups</h2>
           <p>Follow bills and topics that are most important to you! Discuss how your representatives are supporting their campaign promises and protecting your interests.  </p>
-          <p><a class="btn btn-primary" href="groups.html" role="button">View Groups »</a></p>
+          <p><a class="btn btn-primary" href="../groups/groups.php" role="button">View Groups »</a></p>
         </div>
         <div class="col-lg-4">
           <h2>Your Congresspeople</h2>
           <p>See what committees your representatives serve on and how they vote. </p>
-          <p><a class="btn btn-primary" href="#" role="button">View Representatives »</a></p>
+          <p><a class="btn btn-primary" href="../yourcongresspeople/congresspeople.php" role="button">View Representatives »</a></p>
        </div>
         <div class="col-lg-4">
           <h2>Your Account</h2>
           <p>Change information like your password, senator, or representative here!</p>
           <p><a class="btn btn-primary" href="../account/account.php" role="button">View details »</a></p>
         </div>
+	  <?php
+	  if($_SESSION['is_admin']){
+        echo '<div class="col-lg-4">
+          <h2>Admin</h2>
+          <p>Change user privileges and export data!</p>
+          <p><a class="btn btn-primary" href="../admin/admin.php" role="button">View details »</a></p>';
+        }
+?>
       </div>
 
       <!-- Site footer -->
@@ -53,5 +61,7 @@ require_once('../register/login_required.php');
 
     </div> <!-- /container -->
 </body>
+
+<br><br><br>
 
 </html>

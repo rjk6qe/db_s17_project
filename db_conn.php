@@ -1,14 +1,26 @@
 <?php
 
+session_start();
+
 class DbUtil{
-  private static $user = "cs4750s17fac3hc";
-  private static $pass = "LadyGoats";
   private static $host = "stardock.cs.virginia.edu";
-  private static $schema = "cs4750s17fac3hc";
-  private $db;
+  private static $schema = "cs4750s17rjk6qe";
 
   public static function create() {
-    $db = new mysqli(DbUtil::$host, DbUtil::$user, DbUtil::$pass, DbUtil::$schema);
+    if(isset($_SESSION['is_admin'])){
+      $is_admin = $_SESSION['is_admin'];
+    } else{
+      $is_admin = false;
+    }
+    if($is_admin  == true){
+      $user = 'cs4750s17rjk6qeb';
+      $pass = 'AdminLadyGoats';
+    } else{
+      $user = 'cs4750s17rjk6qea';
+      $pass = 'LadyGoats';
+    }
+
+    $db = new mysqli(self::$host, $user, $pass, self::$schema);
     if($db->connect_errno) {
       echo 'db connection failed';
       $db->close();
