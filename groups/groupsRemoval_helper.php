@@ -6,9 +6,10 @@ session_start();
 
 $db =DbUtil::create();
 
+$stmt = $db->prepare("DELETE FROM InterestedIn WHERE username = ? AND group_name=?");
+$stmt->bind_param("ss", $username, $groupname);
 $username = $_SESSION['user'];
 $groupname = $_POST["group"];
-$stmt = $db->prepare("DELETE FROM InterestedIn WHERE username = '{$username}' AND group_name='{$groupname}'");
 
 //print_r($_POST);
 
