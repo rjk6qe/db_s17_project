@@ -1,6 +1,6 @@
 <?php
   require_once('../nav.php');
-	require_once('../login_required.php');
+  require_once('../login_required.php');
 ?>
 
 <body data-gr-c-s-loaded="true">
@@ -23,11 +23,13 @@
   	$db =DbUtil::create();
     session_start();
     $username = $_SESSION['user'];
-    $stmt = $db->prepare("SELECT group_name FROM InterestedIn WHERE username = '{$username}'");
+    $stmt = $db->prepare("SELECT group_name FROM InterestedIn WHERE username = ?");
 
     if(!$stmt){
       echo $db->error;
     }
+
+$stmt->bind_param("s", $username);
 
     if(!$stmt->execute()){
       echo $stmt->error;
@@ -35,7 +37,7 @@
     $stmt -> bind_result($group_name);
     $stmt -> store_result();
     while($stmt->fetch()){
-			echo '<tr><td> <a href="view_group.php?id=' . $group_name .'"> ' . $group_name . ' </a> </td> </tr>';
+	echo '<tr><td> <a href="view_group.php?id=' . htmlentities($group_name) .'"> ' . htmlentities($group_name). ' </a> </td> </tr>';
     };
 	?>
 	</table>

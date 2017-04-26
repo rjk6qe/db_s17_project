@@ -38,7 +38,7 @@
         echo "<label>There are no activated users";   
       } else{
         while($stmt->fetch()){
-          echo "<div class='checkbox'><label><input type='checkbox' name='deactivate_user[]' value='$username'>$username</label>";
+          echo '<div class="checkbox"><label><input type="checkbox" name="deactivate_user[]" value="' . htmlentities($username) . '">' . htmlentities($username) . '</label>';
         };
       }
       

@@ -17,8 +17,7 @@ if(!$abbr){
 
 
 $db =DbUtil::create();
-$stmt = $db->prepare("UPDATE Constituent SET state='{$abbr}' WHERE username = '{$username}'");
-
+$stmt = $db->prepare("UPDATE Constituent SET state=? WHERE username = ?");
 
 if(!$stmt){
   $_SESSION['error_msg'] = "Error updating state";
@@ -27,6 +26,7 @@ if(!$stmt){
   exit();
 }
 
+$stmt->bind_param('ss', $abbr, $username);
 
 if(!$stmt->execute()){
   $_SESSION['error_msg'] = "Error updating state";

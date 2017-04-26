@@ -22,7 +22,7 @@
     <div class="container">
       <div class="masthead">
       <div class="jumbotron">
-        <h1> <?php echo "{$id}" ?> </h1>
+        <h1> <?php echo htmlentities($id); ?> </h1>
       </div>    
         <?php
           if(isset($_SESSION['error_msg'])){

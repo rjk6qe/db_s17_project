@@ -21,8 +21,10 @@
 		$db =DbUtil::create();
 		session_start();
 		$username = $_SESSION['user'];
-$user_email = $_SESSION['user_email'];
-		$stmt = $db->prepare("SELECT state, district FROM Constituent WHERE username = '{$username}' LIMIT 1");
+		$user_email = $_SESSION['user_email'];
+		$stmt = $db->prepare("SELECT state, district FROM Constituent WHERE username = ? LIMIT 1");
+		$stmt->bind_param('s', $username);
+
 		if(!$stmt){
 		  echo $db->error;
 		}
@@ -76,11 +78,11 @@ $user_email = $_SESSION['user_email'];
 	<div class = "row">
           <h2>General Settings</h2>       
           <p><form action="change_username.php" method='post'>
-		<input type= 'text' name='username' placeholder = <?php echo "'$username'" ?> >
+		<input type= 'text' name='username' placeholder="<?php echo $username ?>" >
 		<input class = 'btn btn-primary btn-sm' type='submit' value='Change Username'>	
 	     </form></p>
       	  <p><form action="change_email.php" method='post'>
-                <input type= 'email' name='email' placeholder = <?php echo "'$user_email'" ?> >
+                <input type= 'email' name='email' placeholder = "<?php echo $user_email ?>" >
                 <input class = 'btn btn-primary btn-sm' type='submit' value='Change Email'>
              </form></p>
 	  <p>Change your password!</p>

@@ -9,7 +9,6 @@ $stmt_check->bind_param("s", $new_username);
 $stmt = $db->prepare("UPDATE Constituent SET username=? WHERE username=?");
 $stmt->bind_param("ss", $new_username, $current_username);
 
-
 $current_username = $_SESSION['user'];
 $new_username = $_POST['username'];
 
@@ -18,7 +17,6 @@ if(strlen($new_username) < 1){
   header("Location: account.php");
   exit();
 }
-
 
 if(!$stmt_check->execute()){
   echo $stmt_check->error;

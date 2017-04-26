@@ -19,11 +19,13 @@
 		$db =DbUtil::create();
 		session_start();
 		$username = $_SESSION['user'];
-		$stmt = $db->prepare("SELECT group_name FROM InterestGroup WHERE group_name NOT IN (SELECT group_name FROM InterestedIn WHERE username='{$username}')");
+		$stmt = $db->prepare("SELECT group_name FROM InterestGroup WHERE group_name NOT IN (SELECT group_name FROM InterestedIn WHERE username=?)");
 		
 		if(!$stmt){
 		  echo $db->error;
 		}
+
+$stmt->bind_param("s", $username);
 
 		if(!$stmt->execute()){
 		  echo $stmt->error;
@@ -31,7 +33,7 @@
 		$stmt -> bind_result($group_name);
 		$stmt -> store_result();
 		while($stmt->fetch()){
-			echo "<option>$group_name";
+			echo "<option>".htmlentities($group_name);
 		};
 		echo "</datalist> <input class='btn btn-primary btn-sm' type='submit' value='Join Group'></form>";
 	?>
@@ -55,7 +57,7 @@
 	    $stmt -> bind_result($group_name, $topic);
 	    $stmt -> store_result();
 	    while($stmt->fetch()){
-	            echo "<tr> <td> $group_name </td> <td> $topic </td> </tr>";
+	            echo "<tr> <td>". htmlentities($group_name) ."</td> <td> $topic </td> </tr>";
 	    };
 		?>
 	</table>

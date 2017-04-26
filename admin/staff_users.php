@@ -39,7 +39,9 @@
         echo "<label>There are no regular users to give admin access";   
       } else{
         while($stmt->fetch()){
-          echo "<div class='checkbox'><label><input type='checkbox' name='grant_user[]' value='$username'>$username</label>";
+          echo '<div class="checkbox"><label><input type="checkbox" name="grant_user[]" value="' .  htmlentities($username) . '">';
+	  echo htmlentities($username);
+          echo "</label>";
         };
       }
       
@@ -77,7 +79,7 @@
         echo "<label>There are no other admin users</label>";
       } else{
         while($stmt->fetch()){
-          echo "<div class='checkbox'><label><input type='checkbox' name='remove_user[]' value='$username'>$username</label>";
+          echo '<div class="checkbox"><label><input type="checkbox" name="remove_user[]" value="'. htmlentities($username) .'">' . htmlentities($username) .'</label>';
         };
       }
       

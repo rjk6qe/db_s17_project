@@ -90,23 +90,23 @@ $stmt -> fetch();
 
 
     	// Bills voted on
-        $stmt = $db->prepare("SELECT title, bill_id FROM CongresspersonDetails WHERE member_id = '{$id}'");
+        $stmt = $db->prepare("SELECT title, bill_id, position FROM CongresspersonDetails WHERE member_id = '{$id}'");
      	if(!$stmt){ echo $db->error;}
      	if(!$stmt->execute()){ echo $stmt->error;}
-     	$stmt -> bind_result($title, $bill_id);
+$stmt -> bind_result($title, $bill_id, $position);
      	$stmt -> store_result();
      	echo "<h4>Congressperson {$fname} {$lname} voted on the following bills:</h4><br>";
-     	echo "<table><tr><th style='padding: 8px; border: 1px solid #dddddd; width: 100%;'>Bill Title</th></tr>";
+     	echo "<table><tr><th style='padding: 8px; border: 1px solid #dddddd; width: 100%;'>Bill Title</th><th style='padding: 8px; border: 1px solid #dddddd; wdith: 100%;'>Voting Position</th></tr>";
 	$i=0;
      	while ($stmt->fetch()) {
 	   if($title != ''){
-	     echo "<tr><td style='padding: 8px; border: 1px solid #dddddd; width: 100%;'>{$title}</td></tr>";
+	     echo "<tr><td style='padding: 8px; border: 1px solid #dddddd; width: 100%;'>{$title}</td><td style='padding: 8px; border: 1px solid #dddddd; width: 100%;'>{$position}</td></tr>";
            } else{
-             echo "<tr><td style='padding: 8px; border: 1px solid #dddddd; width: 100%;'>Congressperson {$fname} {$lname} has not voted on any bills.</td></tr>";
+             echo "<tr><td style='padding: 8px; border: 1px solid #dddddd; width: 100%;'>Congressperson {$fname} {$lname} has not voted on any bills.</td><td style='padding: 8px; border: 1px solid #dddddd; width: 100%;'>No voting data</td></tr>";
 	   }
 	   $i++;
        	}
-	if($i==0){echo "<tr><td style='padding: 8px; border: 1px solid #dddddd; width: 100%;'>Congressperson {$fname} {$lname} has not voted on any bills.</td></tr>";}
+	if($i==0){echo "<tr><td style='padding: 8px; border: 1px solid #dddddd; width: 100%;'>Congressperson {$fname} {$lname} has not voted on any bills.</td><td style='padding: 8px; border: 1px solid #dddddd; width: 100%;'>No voting data</td></tr>";}
         echo "</table>";
         $stmt -> close();
 	?>

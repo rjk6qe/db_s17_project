@@ -7,7 +7,8 @@ session_start();
 $username = $_SESSION['user'];
 $db =DbUtil::create();
 // find user state and district
-$stmt = $db->prepare("SELECT email, state, district FROM Constituent WHERE username = '{$username}' LIMIT 1");
+$stmt = $db->prepare("SELECT email, state, district FROM Constituent WHERE username = ? LIMIT 1");
+$stmt->bind_param('s', $username);
 
 if(!$stmt){
   echo $db->error;

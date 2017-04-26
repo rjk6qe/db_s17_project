@@ -30,7 +30,7 @@ if($stmt_check->num_rows == 0){
   if(!$stmt->execute()){
     echo $stmt->error;
   } else{
-    $_SESSION['user'] = $new_email;
+    $_SESSION['user_email'] = $new_email;
     $_SESSION['success_msg'] = "Email successfully changed";
   }
 } else {
